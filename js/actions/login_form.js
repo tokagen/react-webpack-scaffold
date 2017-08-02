@@ -1,10 +1,12 @@
-import { Login } from '../repositories';
+import repo from '../repositories';
 
-let prefix = 'LOGIN_FORM';
+let { Login } = repo;
+
+let PREFIX = 'LOGIN_FORM';
 
 export function changeField (field, value) {
   return {
-    type: `${prefix}_CHANGE_FIELD`,
+    type: `${PREFIX}_CHANGE_FIELD`,
     field,
     value
   };
@@ -12,14 +14,21 @@ export function changeField (field, value) {
 
 export function submitForm (email, password) {
   return {
-    type: `${prefix}_SUBMIT`,
-    //async: true,
-    //payload: {
-    //  user: {
-    //    email,
-    //    password
-    //  }
-    //},
-    //repository: Login
+    type: `${PREFIX}_SUBMIT`,
+    async: true,
+    payload: {
+      login: {
+        email,
+        password
+      }
+    },
+    repository: Login()
+  };
+}
+
+export function setErrors (errors) {
+  return {
+    type: `${PREFIX}_SET_ERRORS`,
+    errors
   };
 }
